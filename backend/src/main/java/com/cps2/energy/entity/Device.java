@@ -37,13 +37,15 @@ public class Device {
     
     @Column(name = "location", length = 100)
     private String location;
-    
-    
+
+    @Column(name = "active", nullable = false)
+    private Boolean active = true;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
     
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 

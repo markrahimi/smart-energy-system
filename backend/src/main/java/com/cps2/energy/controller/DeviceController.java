@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -97,6 +98,36 @@ public class DeviceController {
 
         Device device = existingDevice.get();
         device.setStatus(status);
+
+        Device updatedDevice = deviceRepository.save(device);
+        return ResponseEntity.ok(updatedDevice);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDevice(@PathVariable Long id) {
+        Optional<Device> existingDevice = deviceRepository.findById(id);
+
+        if (!existingDevice.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Device device = existingDevice.get();
+        device.setActive(false);
+        deviceRepository.save(device);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/activate")
+    public ResponseEntity<Device> activateDevice(@PathVariable Long id) {
+        Optional<Device> existingDevice = deviceRepository.findById(id);
+
+        if (!existingDevice.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Device device = existingDevice.get();
+        device.setActive(true);
 
         Device updatedDevice = deviceRepository.save(device);
         return ResponseEntity.ok(updatedDevice);

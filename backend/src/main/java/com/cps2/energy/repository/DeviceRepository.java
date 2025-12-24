@@ -10,6 +10,8 @@ import com.cps2.energy.entity.Device;
 public interface DeviceRepository extends JpaRepository<Device, Long> {
     List<Device> findByUserId(Long userId);
 
+    List<Device> findByUserIdAndActive(Long userId, Boolean active);
+
     List<Device> findByStatus(String status);
 
     List<Device> findByType(String type);
