@@ -86,6 +86,12 @@ So let's explain each entity.
 
 This is just a general reference. We will try to provide better technical documentation when completing each section. This section is only to explain the purpose and different parts of each section.
 
+To view and test the APIs, we used Swagger and implemented it on our project. There were some minor challenges that were resolved by searching the internet.
+Now you can see the schema and APIs at
+
+[swagger](http://localhost:8080/swagger-ui/index.html#/)
+.
+
 ## Project Structure
 
 ```
