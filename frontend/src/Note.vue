@@ -1,0 +1,221 @@
+<template>
+    <div :class="['note', note.status]">
+        <div class="delete-button" @click="deleteNote">&#x1F5D1;</div>
+
+        <!-- variable binding using Vue template syntax, see: https://vuejs.org/guide/essentials/template-syntax.html -->
+        <h2>{{note.title}}</h2>
+
+        <div class="tasks">
+          <div class="task" v-for="task in tasks" :key="task.id">
+            <div class="content">{{ task.content }}</div>
+            <div 
+              class="delete-button" 
+              @click="deleteTask(task.id)"
+            >
+              &#x1F5D1;
+            </div>
+          </div>
+
+          <div class="new-task">
+            <input
+              class="content"
+              placeholder="Enter new task..."
+              v-model="newTaskContent"
+              @keyup.enter="createTask"
+            >
+            <button class="create-btn" @click="createTask">+</button>
+          </div>
+        </div>
+    </div>
+</template>
+
+
+
+<script>
+  import { HOST } from './config.js'
+  import { sendMessage } from './services/errorService.js'
+
+  export default {
+    /**
+     * Here I define the properties that are accepted by my component. Parent component of this one can pass down
+     * data through that property, using HTML attribute syntax in their template: <MyComponent :myProperty="someData"></MyComponent>
+     *
+     * The property will be accessible in our template and methods just like a variable defined in `data`
+     *
+     * See: https://vuejs.org/guide/components/props.html
+     */
+    props: ['note'],
+    emits: ['onNoteDeleted'],
+    data() {
+      return {
+        tasks: [],
+        newTaskContent: ''
+      }
+    },
+    methods: {
+      deleteNote() {
+        fetch(`${HOST}/notes/${this.note.id}`, { method: 'DELETE' })
+          .then(res => {
+            if (!res.ok) throw new Error('Failed to delete note')
+            this.$emit('onNoteDeleted', this.note.id)
+          })
+          .catch(err => sendMessage(err.message))
+      },
+      createTask() {
+        if (!this.newTaskContent.trim()) {
+          return
+        }
+
+        fetch(`${HOST}/notes/${this.note.id}/tasks`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content: this.newTaskContent })
+        })
+          .then(res => {
+            if (!res.ok) throw new Error('Failed to create task')
+            return res.json()
+          })
+          .then(newTask => {
+            this.tasks.push(newTask)
+            this.newTaskContent = ''
+          })
+          .catch(err => sendMessage(err.message))
+      },
+      deleteTask(taskId) {
+        fetch(`${HOST}/tasks/${taskId}`, { method: 'DELETE' })
+          .then(res => {
+            if (!res.ok) throw new Error('Failed to delete task')
+            this.tasks = this.tasks.filter(t => t.id !== taskId)
+          })
+          .catch(err => sendMessage(err.message))
+      }
+    },
+    mounted() {
+      fetch(`${HOST}/notes/${this.note.id}/tasks`)
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to fetch tasks')
+          return res.json()
+        })
+        .then(res => this.tasks = res)
+        .catch(err => sendMessage(err.message))
+    }
+  }
+</script>
+
+
+
+<style lang="scss" scoped>
+@use 'sass:color';
+@use 'assets/stylesheets/mediaQueryScreens.scss' as *;
+@use 'assets/stylesheets/colors.scss' as appColors;
+@use 'assets/stylesheets/noteCard.scss';
+
+
+
+.note {
+  @include  noteCard.noteCard;
+  position: relative;
+
+  & > .delete-button {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+
+  h2 {
+    padding-bottom: 5px;
+    width: calc(100% - 25px);
+  }
+
+  .task {
+    padding: 10px 5px 10px 5px;
+    margin-bottom: 10px;
+  }
+
+
+
+  .task {
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+
+    & > .content {
+      flex-grow: 1;
+    }
+
+    & > .delete-button {
+      visibility: hidden;
+      flex-grow: 0;
+      color: black;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+
+    &:hover > .delete-button {
+      visibility: visible;
+    }
+  }
+
+
+  .new-task {
+    display: flex;  
+
+    & > input { 
+      flex-grow: 1;
+      border: 0;
+      padding: 15px 5px 15px 5px;
+
+      &::placeholder {
+        color: white;
+      }
+    }
+
+    & > .create-btn {
+      background-color: white;
+      font-size: 25px;
+      font-weight: bold;
+      width: 40px;
+    }
+  }
+
+
+  &.unimportant {
+    .task, .new-task > input {
+      background-color: appColors.$light-green;
+      color: color.adjust(appColors.$dark-green, $blackness: 20%);
+    }
+
+    .new-task > .create-btn {
+      color: appColors.$dark-green;
+    }
+  }
+
+  &.serious {
+    .task, .new-task > input {
+      background-color: appColors.$light-yellow;
+      color: color.adjust(appColors.$dark-yellow, $blackness: 20%);
+    }
+
+    .new-task > .create-btn {
+      color: appColors.$dark-yellow;
+    }
+  }
+
+  &.urgent {
+    .task, .new-task > input {
+      background-color: appColors.$light-red;
+      color: color.adjust(appColors.$dark-red, $blackness: 20%);
+    }
+
+    .new-task > .create-btn {
+      color: appColors.$dark-red;
+    }
+  }
+}
+
+
+</style>

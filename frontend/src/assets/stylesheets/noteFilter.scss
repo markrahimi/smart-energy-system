@@ -1,0 +1,85 @@
+@use 'colors.scss' as appColors;
+@use 'mediaQueryScreens.scss';
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.filter-icon {
+  width: 20px;
+  height: 20px;
+}
+
+@include mediaQueryScreens.small {
+  .filter-container {
+    width: 90vw;
+    gap: 5px;
+  }
+
+  .filter-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+@include mediaQueryScreens.medium {
+  .filter-container {
+    width: 80vw;
+  }
+}
+
+@include mediaQueryScreens.large {
+  .filter-container {
+    width: 1024px;
+  }
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  background-color: white;
+  cursor: pointer;
+  font-size: 14px;
+
+  &.active {
+    border-color: #333;
+    font-weight: bold;
+  }
+
+  &.unimportant {
+    color: appColors.$dark-green;
+    border-color: appColors.$dark-green;
+
+    &.active {
+      background-color: appColors.$dark-green;
+      color: white;
+    }
+  }
+
+  &.serious {
+    color: appColors.$dark-yellow;
+    border-color: appColors.$dark-yellow;
+
+    &.active {
+      background-color: appColors.$dark-yellow;
+      color: white;
+    }
+  }
+
+  &.urgent {
+    color: appColors.$dark-red;
+    border-color: appColors.$dark-red;
+
+    &.active {
+      background-color: appColors.$dark-red;
+      color: white;
+    }
+  }
+}
