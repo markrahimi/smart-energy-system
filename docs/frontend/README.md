@@ -1,4 +1,10 @@
-# Smart Energy System - Backend
+# Smart Energy System - Frontend
+
+**Framework:** Vue.js
+
+**Language:** JavaScript
+
+**Styling:** SCSS & Bootstrap (if needed)
 
 ## Project Setup
 
@@ -32,3 +38,4 @@ According to our initial planning and forecast, we decided to consider the follo
 - UserDetail            # User Details & More Data (Devices, Energy Monitoring, Notifications, Charts)
 - Devices               # Show all Devices
 - Add Device
+- Notification          # Show all Notification
