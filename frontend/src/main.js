@@ -3,7 +3,7 @@ import './assets/stylesheets/main.scss'
 
 /** This the root component of the Vue application */
 import App from './App.vue'
-
+import router from './router'
 
 /** 
  *
@@ -12,4 +12,6 @@ import App from './App.vue'
  * in the App component and its children.
  *
  */
-createApp(App).mount('#vue-app')
+// createApp(App).mount('#vue-app')
+
+createApp(App).use(router).mount('#vue-app')

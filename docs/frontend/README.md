@@ -39,3 +39,19 @@ According to our initial planning and forecast, we decided to consider the follo
 - Devices               # Show all Devices
 - Add Device
 - Notification          # Show all Notification
+
+
+
+
+## Packages
+
+In order to implement the route, I came to the conclusion by searching and asking friends that I should use [Vue Router](https://router.vuejs.org/installation), so I installed it with the following command
+
+```
+npm install vue-router@4
+
+```
+
+After that, we did the initial configuration in main.js and substituted a nearly empty page (with just the title) for each page we were going to create. We also created an index.js file to control the paths.
+
+And for testing, we modified the App.vue with a navigation bar with links. This was the step that was required to implement the application.
