@@ -7,6 +7,7 @@ import UserDetail from '../views/UserDetail.vue'
 import Devices from '../views/Devices.vue'
 import AddDevice from '../views/AddDevice.vue'
 import Notifications from '../views/Notifications.vue'
+import SensorData from '../views/SensorData.vue'
 
 
 
@@ -45,6 +46,11 @@ const routes = [
     path: '/notifications',
     name: 'Notifications',
     component: Notifications
+  },
+  {
+    path: '/sensors',
+    name: 'SensorsData',
+    component: SensorData
   }
 ]
 const router = createRouter({
