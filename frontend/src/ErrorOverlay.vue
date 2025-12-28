@@ -16,24 +16,24 @@ export default {
     return {
       isVisible: false,
       errorMessage: ''
-    };
+    }
   },
   methods: {
     showError(message) {
-      this.errorMessage = message;
-      this.isVisible = true;
+      this.errorMessage = message
+      this.isVisible = true
     },
     close() {
-      this.isVisible = false;
-      this.errorMessage = '';
+      this.isVisible = false
+      this.errorMessage = ''
     }
   },
   mounted() {
-    this.observer = (message) => this.showError(message);
-    onNewMessage(this.observer);
+    this.observer = message => this.showError(message)
+    onNewMessage(this.observer)
   },
   beforeUnmount() {
-    removeObserver(this.observer);
+    removeObserver(this.observer)
   }
 }
 </script>

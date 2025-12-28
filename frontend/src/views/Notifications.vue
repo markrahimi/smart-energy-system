@@ -57,7 +57,7 @@ export default {
       this.loading = true
       try {
         this.notifications = await getNotifications()
-      } catch(err) {
+      } catch (err) {
         sendMessage('failed to load notifications')
       } finally {
         this.loading = false

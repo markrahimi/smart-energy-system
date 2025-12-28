@@ -6,11 +6,11 @@
       <p>loading devices...</p>
     </div>
 
-    <div v-if="!loading && devices.length===0">
+    <div v-if="!loading && devices.length === 0">
       <p>no devices available</p>
     </div>
 
-    <div v-if="!loading && devices.length>0">
+    <div v-if="!loading && devices.length > 0">
       <table>
         <thead>
           <tr>
@@ -24,12 +24,12 @@
         </thead>
         <tbody>
           <tr v-for="device in devices" :key="device.id">
-            <td>{{device.id}}</td>
-            <td>{{device.name}}</td>
-            <td>{{device.type}}</td>
-            <td>{{device.location}}</td>
-            <td>{{device.status}}</td>
-            <td>{{device.active ? 'Yes':'No'}}</td>
+            <td>{{ device.id }}</td>
+            <td>{{ device.name }}</td>
+            <td>{{ device.type }}</td>
+            <td>{{ device.location }}</td>
+            <td>{{ device.status }}</td>
+            <td>{{ device.active ? 'Yes' : 'No' }}</td>
           </tr>
         </tbody>
       </table>
@@ -38,29 +38,29 @@
 </template>
 
 <script>
-import {getDevices} from '../services/deviceService.js'
-import {sendMessage} from '../services/errorService.js'
+import { getDevices } from '../services/deviceService.js'
+import { sendMessage } from '../services/errorService.js'
 
 export default {
   name: 'Devices',
-  data(){
-    return{
-      devices:[],
-      loading:false
+  data() {
+    return {
+      devices: [],
+      loading: false
     }
   },
-  mounted(){
+  mounted() {
     this.fetchDevices()
   },
-  methods:{
-    async fetchDevices(){
-      this.loading=true
-      try{
-        this.devices=await getDevices()
-      }catch(error){
+  methods: {
+    async fetchDevices() {
+      this.loading = true
+      try {
+        this.devices = await getDevices()
+      } catch (error) {
         sendMessage('failed to load devices')
-      }finally{
-        this.loading=false
+      } finally {
+        this.loading = false
       }
     }
   }

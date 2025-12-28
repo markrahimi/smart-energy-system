@@ -55,7 +55,7 @@ export default {
       this.loading = true
       try {
         this.users = await getUsers()
-      } catch(err) {
+      } catch (err) {
         sendMessage('failed to load users')
       } finally {
         this.loading = false

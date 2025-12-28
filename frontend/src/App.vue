@@ -2,7 +2,6 @@
   <error-overlay />
 
   <div class="app">
-
     <div class="container">
       <nav class="navbar">
         <ul class="nav-menu">
@@ -18,7 +17,6 @@
     <div class="container">
       <router-view></router-view>
     </div>
-    
   </div>
 </template>
 

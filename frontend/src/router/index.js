@@ -1,4 +1,3 @@
-
 import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
 import Users from '../views/Users.vue'
@@ -8,8 +7,6 @@ import Devices from '../views/Devices.vue'
 import AddDevice from '../views/AddDevice.vue'
 import Notifications from '../views/Notifications.vue'
 import SensorData from '../views/SensorData.vue'
-
-
 
 const routes = [
   {
@@ -54,10 +51,8 @@ const routes = [
   }
 ]
 const router = createRouter({
-
   history: createWebHistory(),
   routes
-  
 })
 
 export default router

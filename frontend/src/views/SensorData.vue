@@ -6,11 +6,11 @@
       <p>loading sensor data...</p>
     </div>
 
-    <div v-if="!loading && sensorData.length===0">
+    <div v-if="!loading && sensorData.length === 0">
       <p>no sensor data available</p>
     </div>
 
-    <div v-if="!loading && sensorData.length>0">
+    <div v-if="!loading && sensorData.length > 0">
       <table>
         <thead>
           <tr>
@@ -40,29 +40,29 @@
 </template>
 
 <script>
-import {getSensorData} from '../services/sensorDataService.js'
-import {sendMessage} from '../services/errorService.js'
+import { getSensorData } from '../services/sensorDataService.js'
+import { sendMessage } from '../services/errorService.js'
 
 export default {
   name: 'SensorData',
-  data(){
-    return{
-      sensorData:[],
-      loading:false
+  data() {
+    return {
+      sensorData: [],
+      loading: false
     }
   },
-  mounted(){
+  mounted() {
     this.fetchSensorData()
   },
-  methods:{
-    async fetchSensorData(){
-      this.loading=true
-      try{
-        this.sensorData=await getSensorData()
-      }catch(error){
+  methods: {
+    async fetchSensorData() {
+      this.loading = true
+      try {
+        this.sensorData = await getSensorData()
+      } catch (error) {
         sendMessage('failed to load sensor data')
-      }finally{
-        this.loading=false
+      } finally {
+        this.loading = false
       }
     }
   }
