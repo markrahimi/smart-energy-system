@@ -4,7 +4,6 @@
   <div class="app">
     <div class="container">
       <nav class="navbar">
-        <h1>Smart Energy System</h1>
         <ul class="nav-menu">
           <li><router-link to="/">Dashboard</router-link></li>
           <li><router-link to="/users">Users</router-link></li>
