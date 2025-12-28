@@ -64,31 +64,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-h2 {
-  color: #333;
-  margin-bottom: 20px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-th, td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-th {
-  background-color: #f4f4f4;
-  font-weight: bold;
-}
-
-tr:hover {
-  background-color: #f9f9f9;
-}
-</style>
