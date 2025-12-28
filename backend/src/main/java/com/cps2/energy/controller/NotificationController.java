@@ -53,7 +53,12 @@ public class NotificationController {
     public ResponseEntity<Notification> getNotificationById(@PathVariable Long id) {
         Optional<Notification> notification = notificationRepository.findById(id);
         if (notification.isPresent()) {
-            return ResponseEntity.ok(notification.get());
+            Notification notif = notification.get();
+            if(!notif.getIsRead()) {
+                notif.setIsRead(true);
+                notificationRepository.save(notif);
+            }
+            return ResponseEntity.ok(notif);
         }
         return ResponseEntity.notFound().build();
     }
@@ -77,24 +82,6 @@ public class NotificationController {
 
         Notification newNotification = notificationRepository.save(notification);
         return ResponseEntity.status(HttpStatus.CREATED).body(newNotification);
-    }
-
-    @PutMapping("/{id}/read")
-    public ResponseEntity<Notification> markAsRead(@PathVariable Long id) {
-
-
-        Optional<Notification> existingNotification = notificationRepository.findById(id);
-
-        if (!existingNotification.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        Notification notification = existingNotification.get();
-        notification.setIsRead(true);
-
-        Notification updatedNotification = notificationRepository.save(notification);
-        return ResponseEntity.ok(updatedNotification);
-
     }
 
     @PutMapping("/user/{userId}/read-all")
