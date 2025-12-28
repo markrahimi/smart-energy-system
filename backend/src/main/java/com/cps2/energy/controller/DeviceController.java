@@ -88,21 +88,6 @@ public class DeviceController {
         return ResponseEntity.ok(updatedDevice);
     }
 
-    @PutMapping("/{id}/status")
-    public ResponseEntity<Device> updateDeviceStatus(@PathVariable Long id, @RequestParam String status) {
-        Optional<Device> existingDevice = deviceRepository.findById(id);
-
-        if (!existingDevice.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        Device device = existingDevice.get();
-        device.setStatus(status);
-
-        Device updatedDevice = deviceRepository.save(device);
-        return ResponseEntity.ok(updatedDevice);
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDevice(@PathVariable Long id) {
         Optional<Device> existingDevice = deviceRepository.findById(id);
@@ -116,20 +101,5 @@ public class DeviceController {
         deviceRepository.save(device);
 
         return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping("/{id}/activate")
-    public ResponseEntity<Device> activateDevice(@PathVariable Long id) {
-        Optional<Device> existingDevice = deviceRepository.findById(id);
-
-        if (!existingDevice.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        Device device = existingDevice.get();
-        device.setActive(true);
-
-        Device updatedDevice = deviceRepository.save(device);
-        return ResponseEntity.ok(updatedDevice);
     }
 }
