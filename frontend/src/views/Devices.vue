@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h2>Devices</h2>
+    <div class="header">
+      <h2>Devices</h2>
+      <button @click="addDevice" class="btn-add">Add Device</button>
+    </div>
 
     <div v-if="loading">
       <p>loading devices...</p>
@@ -62,7 +65,34 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+    addDevice(){
+      this.$router.push('/devices/add')
     }
   }
 }
 </script>
+
+<style>
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.btn-add{
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-add:hover{
+  opacity: 0.9;
+}
+
+</style>
