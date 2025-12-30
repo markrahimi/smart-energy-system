@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h2>Users</h2>
+    <div class="header">
+      <h2>Users</h2>
+      <button @click="addUser" class="btn-add">Add User</button>
+    </div>
 
     <div v-if="loading">
       <p>loading users...</p>
@@ -55,12 +58,37 @@ export default {
       this.loading = true
       try {
         this.users = await getUsers()
-      } catch (err) {
+      } catch(err) {
         sendMessage('failed to load users')
       } finally {
         this.loading = false
       }
+    },
+    addUser(){
+      this.$router.push('/users/add')
     }
   }
 }
 </script>
+
+<style scoped>
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.btn-add{
+  padding:10px 20px;
+  background-color:#3498db;
+  color:white;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+.btn-add:hover{
+  opacity:0.9;
+}
+</style>
