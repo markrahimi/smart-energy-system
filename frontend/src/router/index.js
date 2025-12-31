@@ -46,7 +46,7 @@ const routes = [
   },
   {
     path: '/sensors',
-    name: 'SensorsData',
+    name: 'SensorData',
     component: SensorData
   }
 ]
