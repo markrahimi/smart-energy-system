@@ -5,6 +5,7 @@ import AddUser from '../views/AddUser.vue'
 import UserDetail from '../views/UserDetail.vue'
 import Devices from '../views/Devices.vue'
 import AddDevice from '../views/AddDevice.vue'
+import EditDevice from '../views/EditDevice.vue'
 import Notifications from '../views/Notifications.vue'
 import SensorData from '../views/SensorData.vue'
 
@@ -38,6 +39,11 @@ const routes = [
     path: '/devices/add',
     name: 'AddDevice',
     component: AddDevice
+  },
+  {
+    path: '/devices/:id/edit',
+    name: 'EditDevice',
+    component: EditDevice
   },
   {
     path: '/notifications',

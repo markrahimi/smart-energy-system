@@ -23,6 +23,7 @@
             <th>Location</th>
             <th>Status</th>
             <th>Active</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -33,6 +34,9 @@
             <td>{{ device.location }}</td>
             <td>{{ device.status }}</td>
             <td>{{ device.active ? 'Yes' : 'No' }}</td>
+            <td>
+              <button @click="editDevice(device.id)" class="btn-edit">Edit</button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -68,6 +72,9 @@ export default {
     },
     addDevice(){
       this.$router.push('/devices/add')
+    },
+    editDevice(id){
+      this.$router.push(`/devices/${id}/edit`)
     }
   }
 }
@@ -92,6 +99,20 @@ export default {
 }
 
 .btn-add:hover{
+  opacity: 0.9;
+}
+
+
+.btn-edit{
+  padding: 5px 15px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-edit:hover{
   opacity: 0.9;
 }
 
