@@ -22,6 +22,7 @@
             <th>Email</th>
             <th>Full Name</th>
             <th>Role</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -31,6 +32,9 @@
             <td>{{ user.email }}</td>
             <td>{{ user.fullName }}</td>
             <td>{{ user.role }}</td>
+            <td>
+              <button @click="viewUser(user.id)" class="btn-view">View</button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -66,6 +70,9 @@ export default {
     },
     addUser(){
       this.$router.push('/users/add')
+    },
+    viewUser(id){
+      this.$router.push(`/users/${id}`)
     }
   }
 }
@@ -89,6 +96,19 @@ export default {
 }
 
 .btn-add:hover{
+  opacity:0.9;
+}
+
+.btn-view{
+  padding:5px 15px;
+  background-color:#2ecc71;
+  color:white;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+.btn-view:hover{
   opacity:0.9;
 }
 </style>

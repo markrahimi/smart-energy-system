@@ -27,3 +27,17 @@ export async function createUser(userData) {
 
   return res.json()
 }
+
+
+
+export async function getUserById(id) {
+  
+  const res = await fetch(`${HOST}/users/${id}`)
+
+  if (!res.ok) {
+    console.log('Error getUserById: ', res)
+    throw new Error('failed get user')
+  }
+
+  return res.json()
+}
