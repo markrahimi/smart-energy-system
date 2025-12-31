@@ -34,6 +34,8 @@
             <td>{{ user.role }}</td>
             <td>
               <button @click="viewUser(user.id)" class="btn-view">View</button>
+
+              <button @click="editUser(user.id)" class="btn-edit">Edit</button>
             </td>
           </tr>
         </tbody>
@@ -74,6 +76,10 @@ export default {
     viewUser(id){
       this.$router.push(`/users/${id}`)
     }
+    ,
+    editUser(id){
+      this.$router.push(`/users/${id}/edit`)
+    }
   }
 }
 </script>
@@ -109,6 +115,21 @@ export default {
 }
 
 .btn-view:hover{
+  opacity:0.9;
+}
+
+
+.btn-edit{
+  padding:5px 15px;
+  background-color:#f39c12;
+  color:white;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+  margin-left:5px;
+}
+
+.btn-edit:hover{
   opacity:0.9;
 }
 </style>

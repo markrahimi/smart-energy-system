@@ -3,6 +3,7 @@ import Dashboard from '../views/Dashboard.vue'
 import Users from '../views/Users.vue'
 import AddUser from '../views/AddUser.vue'
 import UserDetail from '../views/UserDetail.vue'
+import EditUser from '../views/EditUser.vue'
 import Devices from '../views/Devices.vue'
 import AddDevice from '../views/AddDevice.vue'
 import EditDevice from '../views/EditDevice.vue'
@@ -29,6 +30,11 @@ const routes = [
     path: '/users/:id',
     name: 'UserDetail',
     component: UserDetail
+  },
+  {
+    path: '/users/:id/edit',
+    name: 'EditUser',
+    component: EditUser
   },
   {
     path: '/devices',
