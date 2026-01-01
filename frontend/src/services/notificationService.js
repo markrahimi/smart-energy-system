@@ -24,18 +24,3 @@ export async function getNotificationById(id) {
 
   return res.json()
 }
-
-
-
-
-export async function getNotificationById(id) {
-  
-  const res = await fetch(`${HOST}/notifications/${id}`)
-
-  if (!res.ok) {
-    console.log('Error getNotificationById: ', res)
-    throw new Error('failed get notification')
-  }
-
-  return res.json()
-}
