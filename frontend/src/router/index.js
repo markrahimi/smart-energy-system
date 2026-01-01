@@ -6,8 +6,10 @@ import UserDetail from '../views/UserDetail.vue'
 import EditUser from '../views/EditUser.vue'
 import Devices from '../views/Devices.vue'
 import AddDevice from '../views/AddDevice.vue'
+import DeviceDetail from '../views/DeviceDetail.vue'
 import EditDevice from '../views/EditDevice.vue'
 import Notifications from '../views/Notifications.vue'
+import NotificationDetail from '../views/NotificationDetail.vue'
 import SensorData from '../views/SensorData.vue'
 
 const routes = [
@@ -47,6 +49,11 @@ const routes = [
     component: AddDevice
   },
   {
+    path: '/devices/:id',
+    name: 'DeviceDetail',
+    component: DeviceDetail
+  },
+  {
     path: '/devices/:id/edit',
     name: 'EditDevice',
     component: EditDevice
@@ -55,6 +62,11 @@ const routes = [
     path: '/notifications',
     name: 'Notifications',
     component: Notifications
+  },
+  {
+    path: '/notifications/:id',
+    name: 'NotificationDetail',
+    component: NotificationDetail
   },
   {
     path: '/sensors',

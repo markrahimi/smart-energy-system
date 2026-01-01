@@ -35,6 +35,7 @@
             <td>{{ device.status }}</td>
             <td>{{ device.active ? 'Yes' : 'No' }}</td>
             <td>
+              <button @click="viewDevice(device.id)" class="btn-view">View</button>
               <button @click="editDevice(device.id)" class="btn-edit">Edit</button>
             </td>
           </tr>
@@ -73,6 +74,9 @@ export default {
     addDevice(){
       this.$router.push('/devices/add')
     },
+    viewDevice(id){
+      this.$router.push(`/devices/${id}`)
+    },
     editDevice(id){
       this.$router.push(`/devices/${id}/edit`)
     }
@@ -102,6 +106,18 @@ export default {
   opacity: 0.9;
 }
 
+.btn-view{
+  padding: 5px 15px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-view:hover{
+  opacity: 0.9;
+}
 
 .btn-edit{
   padding: 5px 15px;
@@ -110,6 +126,7 @@ export default {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-left: 5px;
 }
 
 .btn-edit:hover{
