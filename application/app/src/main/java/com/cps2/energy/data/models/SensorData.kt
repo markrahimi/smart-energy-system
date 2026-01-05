@@ -1,6 +1,8 @@
 package com.cps2.energy.data.models
 
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class SensorData(
     val id: Long,
     val device: Device,

@@ -1,6 +1,8 @@
 package com.cps2.energy.data.models
 
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class Device(
     val id: Long,
     val name: String,

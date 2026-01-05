@@ -1,5 +1,8 @@
 package com.cps2.energy.data.models
 
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class User(
     val id: Long,
     val username: String,
@@ -9,5 +12,4 @@ data class User(
     val createdAt: String?,
     val devices: List<Device>? = null,
     val notifications: List<Notification>? = null
-
 )
