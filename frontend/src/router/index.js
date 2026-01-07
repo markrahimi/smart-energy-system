@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Users from '../views/Users.vue'
 import AddUser from '../views/AddUser.vue'
@@ -20,6 +21,11 @@ import EditThreshold from '../views/EditThreshold.vue'
 const routes = [
   {
     path: '/',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard
   },

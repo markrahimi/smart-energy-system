@@ -2,11 +2,15 @@
   <error-overlay />
 
   <div class="app">
-    <nav-bar />
-
-    <div class="container">
+    <div class="app-title" v-if="$route.name !== 'Login'">
+      <h1>Smart Energy System</h1>
+    </div>
+    
+    <nav-bar v-if="$route.name !== 'Login'" />
+    <div class="container" v-if="$route.name !== 'Login'">
       <router-view></router-view>
     </div>
+    <router-view v-if="$route.name === 'Login'"></router-view>
   </div>
 </template>
 

@@ -2,7 +2,7 @@
   <div class="container">
     <nav class="navbar">
       <ul class="nav-menu">
-        <li><router-link to="/">Dashboard</router-link></li>
+        <li><router-link to="/dashboard">Dashboard</router-link></li>
         <li><router-link to="/users">Users</router-link></li>
         <li><router-link to="/devices">Devices</router-link></li>
         <li><router-link to="/notifications">Notifications</router-link></li>
