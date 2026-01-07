@@ -41,7 +41,6 @@ public class NotificationService {
         return entities.stream().map(NotificationEntity::toDomain).toList();
     }
 
-    @Transactional(readOnly = true)
     public Notification getNotificationById(UUID id) {
         NotificationEntity entity = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Notification not found with id: " + id));
