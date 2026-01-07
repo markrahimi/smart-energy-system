@@ -31,10 +31,12 @@
           <tr>
             <th>ID</th>
             <th>Device Name</th>
-            <th>Temperature</th>
-            <th>Humidity</th>
-            <th>Luminosity</th>
-            <th>Distance</th>
+            <th>Temperature (کاC)</th>
+            <th>Humidity (%)</th>
+            <th>Luminosity (lux)</th>
+            <th>Power (W)</th>
+            <th>Voltage (V)</th>
+            <th>Current (A)</th>
             <th>Timestamp</th>
           </tr>
         </thead>
@@ -42,11 +44,13 @@
           <tr v-for="data in filteredSensorData" :key="data.id">
             <td>{{ data.id }}</td>
             <td>{{ data.device.name }}</td>
-            <td>{{ data.temperature }}</td>
-            <td>{{ data.humidity }}</td>
-            <td>{{ data.luminosity }}</td>
-            <td>{{ data.distance || 'N/A' }}</td>
-            <td>{{ data.timestamp }}</td>
+            <td>{{ data.temperature || 'N/A' }}</td>
+            <td>{{ data.humidity || 'N/A' }}</td>
+            <td>{{ data.luminosity || 'N/A' }}</td>
+            <td>{{ data.powerConsumption || 'N/A' }}</td>
+            <td>{{ data.voltage || 'N/A' }}</td>
+            <td>{{ data.current || 'N/A' }}</td>
+            <td>{{ new Date(data.timestamp).toLocaleString() }}</td>
           </tr>
         </tbody>
       </table>
