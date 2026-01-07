@@ -21,6 +21,7 @@
             <th>Message</th>
             <th>Type</th>
             <th>Priority</th>
+            <th>source</th>
             <th>Read</th>
             <th>Actions</th>
           </tr>
@@ -32,6 +33,10 @@
             <td>{{ notif.message }}</td>
             <td>{{ notif.type }}</td>
             <td>{{ notif.priority }}</td>
+            <td>
+              <span v-if="notif.thresholdId">Threshold Alert</span>
+              <span v-else > system</span>
+            </td>
             <td>{{ notif.isRead ? 'Yes' : 'No' }}</td>
             <td>
               <button @click="viewNotification(notif.id)" class="btn-view">View</button>
