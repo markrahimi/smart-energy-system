@@ -30,7 +30,7 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Device Name</th>
+            <th>Device ID</th>
             <th>Temperature (کاC)</th>
             <th>Humidity (%)</th>
             <th>Luminosity (lux)</th>
@@ -43,7 +43,7 @@
         <tbody>
           <tr v-for="data in filteredSensorData" :key="data.id">
             <td>{{ data.id }}</td>
-            <td>{{ data.device.name }}</td>
+            <td>{{ data.deviceId }}</td>
             <td>{{ data.temperature || 'N/A' }}</td>
             <td>{{ data.humidity || 'N/A' }}</td>
             <td>{{ data.luminosity || 'N/A' }}</td>
@@ -60,6 +60,7 @@
 
 <script>
 import { getSensorData } from '../services/sensorDataService.js'
+import { getDevices } from '../services/deviceService.js'
 import { sendMessage } from '../services/errorService.js'
 
 export default {
@@ -67,40 +68,37 @@ export default {
   data() {
     return {
       sensorData: [],
+      devices: [],
       loading: false,
       selectedDeviceId: ''
     }
   },
   computed: {
     uniqueDevices() {
-      const devices = this.sensorData.map(data => data.device)
-      const unique = []
-      const ids = []
-      devices.forEach(device => {
-        if(!ids.includes(device.id)) {
-          ids.push(device.id)
-          unique.push(device)
-        }
+      const deviceIds = [...new Set(this.sensorData.map(data => data.deviceId))]
+      return deviceIds.map(id => {
+        const device = this.devices.find(d => d.id === id)
+        return { id, name: device ? device.name : id }
       })
-      return unique
     },
     filteredSensorData() {
       if(!this.selectedDeviceId) {
         return this.sensorData
       }
-      return this.sensorData.filter(data => data.device.id == this.selectedDeviceId)
+      return this.sensorData.filter(data => data.deviceId == this.selectedDeviceId)
     }
   },
   mounted() {
-    this.fetchSensorData()
+    this.fetchData()
   },
   methods: {
-    async fetchSensorData() {
+    async fetchData() {
       this.loading = true
       try {
+        this.devices = await getDevices()
         this.sensorData = await getSensorData()
       } catch (error) {
-        sendMessage('failed to load sensor data')
+        sendMessage('failed to load data')
       } finally {
         this.loading = false
       }
@@ -117,6 +115,7 @@ h2 {
   margin-bottom: 20px;
 }
 
+
 .filter-section {
   margin-bottom: 20px;
   padding: 15px;
@@ -128,6 +127,7 @@ h2 {
   margin-right: 10px;
   font-weight: bold;
 }
+
 
 .filter-section select {
   padding: 8px 12px;
