@@ -1,4 +1,6 @@
 package com.cps2.energy.persistence;
+import org.springframework.stereotype.Repository;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -6,6 +8,7 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+@Repository
 public interface EnergyReadingRepository extends JpaRepository<EnergyReadingEntity, UUID> {
     List<EnergyReadingEntity> findByDeviceId(UUID deviceId);
 
