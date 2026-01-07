@@ -7,6 +7,7 @@
         <li><router-link to="/devices">Devices</router-link></li>
         <li><router-link to="/notifications">Notifications</router-link></li>
         <li><router-link to="/sensors">Sensor Data</router-link></li>
+        <li><router-link to="/thresholds">Thresholds</router-link></li>
       </ul>
     </nav>
   </div>
