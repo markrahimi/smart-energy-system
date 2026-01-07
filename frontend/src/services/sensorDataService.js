@@ -13,20 +13,18 @@ export async function getSensorData() {
 
 
 
-
-export async function createDevice(deviceData){
-  
-  const res= await fetch(`${HOST}/devices`,{
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json'
+export async function createSensorData(sensorData) {
+  const res = await fetch(`${HOST}/sensor-data`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify(deviceData)
+    body: JSON.stringify(sensorData)
   })
 
-  if(!res.ok){
-    console.log('Error createDevice: ',res)
-    throw new Error('failed create device')
+  if (!res.ok) {
+    console.log('Error createSensorData: ', res)
+    throw new Error('failed to create sensor data')
   }
 
   return res.json()
