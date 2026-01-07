@@ -12,9 +12,11 @@ public class Notification {
     private final String priority;
     private final Boolean isRead;
     private final UUID userId;
+    private final UUID thresholdId;
     private final LocalDateTime createdAt;
 
-    public Notification(UUID id, String title, String message, String type, String priority, Boolean isRead, UUID userId, LocalDateTime createdAt) {
+    public Notification(UUID id, String title, String message, String type, String priority, Boolean isRead,
+            UUID userId, UUID thresholdId, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
         this.message = message;
@@ -22,18 +24,28 @@ public class Notification {
         this.priority = priority;
         this.isRead = isRead;
         this.userId = userId;
+        this.thresholdId = thresholdId;
         this.createdAt = createdAt;
     }
 
-    public static Notification newNotification(String title, String message, String type, String priority, UUID userId) {
-        return new Notification(UUID.randomUUID(), title, message, type, priority != null ? priority : "MEDIUM", false, userId, LocalDateTime.now());
+    public static Notification newNotification(String title, String message, String type, String priority,
+            UUID userId) {
+        return new Notification(UUID.randomUUID(), title, message, type, priority != null ? priority : "MEDIUM", false,
+                userId, null, LocalDateTime.now());
+    }
+
+    public static Notification newThresholdNotification(String title, String message, String type, String priority,
+            UUID userId, UUID thresholdId) {
+        return new Notification(UUID.randomUUID(), title, message, type, priority != null ? priority : "MEDIUM", false,
+                userId, thresholdId, LocalDateTime.now());
     }
 
     public Notification markAsRead() {
         if (isRead) {
             throw new IllegalStateException("Notification is already read");
         }
-        return new Notification(this.id, this.title, this.message, this.type, this.priority, true, this.userId, this.createdAt);
+        return new Notification(this.id, this.title, this.message, this.type, this.priority, true, this.userId,
+                this.thresholdId, this.createdAt);
     }
 
     public UUID getId() {
@@ -62,6 +74,10 @@ public class Notification {
 
     public UUID getUserId() {
         return userId;
+    }
+
+    public UUID getThresholdId() {
+        return thresholdId;
     }
 
     public LocalDateTime getCreatedAt() {

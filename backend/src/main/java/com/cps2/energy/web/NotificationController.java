@@ -29,8 +29,8 @@ class NotificationController {
 
     @GetMapping
     List<NotificationRepresentation> getAllNotifications(@RequestParam(required = false) UUID userId,
-                                                         @RequestParam(required = false) Boolean isRead,
-                                                         @RequestParam(required = false) String type) {
+            @RequestParam(required = false) Boolean isRead,
+            @RequestParam(required = false) String type) {
         return notificationService.getAllNotifications(userId, isRead, type).stream()
                 .map(NotificationRepresentation::fromDomain)
                 .toList();
@@ -52,15 +52,26 @@ class NotificationController {
     }
 
     @PostMapping
-    ResponseEntity<NotificationRepresentation> createNotification(@RequestBody NotificationToCreateRepresentation notificationToCreate) {
+    ResponseEntity<NotificationRepresentation> createNotification(
+            @RequestBody NotificationToCreateRepresentation notificationToCreate) {
         try {
-            Notification notification = Notification.newNotification(
-                    notificationToCreate.title(),
-                    notificationToCreate.message(),
-                    notificationToCreate.type(),
-                    notificationToCreate.priority(),
-                    notificationToCreate.userId()
-            );
+            Notification notification;
+            if (notificationToCreate.thresholdId() != null) {
+                notification = Notification.newThresholdNotification(
+                        notificationToCreate.title(),
+                        notificationToCreate.message(),
+                        notificationToCreate.type(),
+                        notificationToCreate.priority(),
+                        notificationToCreate.userId(),
+                        notificationToCreate.thresholdId());
+            } else {
+                notification = Notification.newNotification(
+                        notificationToCreate.title(),
+                        notificationToCreate.message(),
+                        notificationToCreate.type(),
+                        notificationToCreate.priority(),
+                        notificationToCreate.userId());
+            }
             Notification createdNotification = notificationService.createNotification(notification);
 
             URI location = ServletUriComponentsBuilder

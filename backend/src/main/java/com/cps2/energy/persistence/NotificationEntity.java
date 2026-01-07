@@ -35,6 +35,9 @@ public class NotificationEntity {
     @Column(name = "user_id", nullable = false)
     private UUID userId;
 
+    @Column(name = "threshold_id")
+    private UUID thresholdId;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -94,6 +97,14 @@ public class NotificationEntity {
         this.userId = userId;
     }
 
+    public UUID getThresholdId() {
+        return thresholdId;
+    }
+
+    public void setThresholdId(UUID thresholdId) {
+        this.thresholdId = thresholdId;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -111,11 +122,12 @@ public class NotificationEntity {
         entity.setPriority(notification.getPriority());
         entity.setIsRead(notification.getIsRead());
         entity.setUserId(notification.getUserId());
+        entity.setThresholdId(notification.getThresholdId());
         entity.setCreatedAt(notification.getCreatedAt());
         return entity;
     }
 
     public Notification toDomain() {
-        return new Notification(id, title, message, type, priority, isRead, userId, createdAt);
+        return new Notification(id, title, message, type, priority, isRead, userId, thresholdId, createdAt);
     }
 }

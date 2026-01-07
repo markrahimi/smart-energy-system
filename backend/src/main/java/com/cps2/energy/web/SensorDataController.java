@@ -60,15 +60,17 @@ class SensorDataController {
     }
 
     @PostMapping
-    ResponseEntity<SensorDataRepresentation> createSensorData(@RequestBody SensorDataToCreateRepresentation dataToCreate) {
+    ResponseEntity<SensorDataRepresentation> createSensorData(
+            @RequestBody SensorDataToCreateRepresentation dataToCreate) {
         try {
             SensorData data = SensorData.newSensorData(
                     dataToCreate.temperature(),
                     dataToCreate.humidity(),
                     dataToCreate.luminosity(),
-                    dataToCreate.distance(),
-                    dataToCreate.deviceId()
-            );
+                    dataToCreate.powerConsumption(),
+                    dataToCreate.voltage(),
+                    dataToCreate.current(),
+                    dataToCreate.deviceId());
             SensorData createdData = sensorDataService.createSensorData(data);
 
             URI location = ServletUriComponentsBuilder

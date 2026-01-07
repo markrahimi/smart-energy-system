@@ -26,8 +26,14 @@ public class SensorDataEntity {
     @Column(name = "luminosity")
     private Double luminosity;
 
-    @Column(name = "distance")
-    private Double distance;
+    @Column(name = "power_consumption")
+    private Double powerConsumption;
+
+    @Column(name = "voltage")
+    private Double voltage;
+
+    @Column(name = "current")
+    private Double current;
 
     @Column(name = "device_id", nullable = false)
     private UUID deviceId;
@@ -67,12 +73,28 @@ public class SensorDataEntity {
         this.luminosity = luminosity;
     }
 
-    public Double getDistance() {
-        return distance;
+    public Double getPowerConsumption() {
+        return powerConsumption;
     }
 
-    public void setDistance(Double distance) {
-        this.distance = distance;
+    public void setPowerConsumption(Double powerConsumption) {
+        this.powerConsumption = powerConsumption;
+    }
+
+    public Double getVoltage() {
+        return voltage;
+    }
+
+    public void setVoltage(Double voltage) {
+        this.voltage = voltage;
+    }
+
+    public Double getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Double current) {
+        this.current = current;
     }
 
     public UUID getDeviceId() {
@@ -97,13 +119,16 @@ public class SensorDataEntity {
         entity.setTemperature(data.getTemperature());
         entity.setHumidity(data.getHumidity());
         entity.setLuminosity(data.getLuminosity());
-        entity.setDistance(data.getDistance());
+        entity.setPowerConsumption(data.getPowerConsumption());
+        entity.setVoltage(data.getVoltage());
+        entity.setCurrent(data.getCurrent());
         entity.setDeviceId(data.getDeviceId());
         entity.setTimestamp(data.getTimestamp());
         return entity;
     }
 
     public SensorData toDomain() {
-        return new SensorData(id, temperature, humidity, luminosity, distance, deviceId, timestamp);
+        return new SensorData(id, temperature, humidity, luminosity,
+                powerConsumption, voltage, current, deviceId, timestamp);
     }
 }
