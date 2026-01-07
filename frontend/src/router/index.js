@@ -11,6 +11,11 @@ import EditDevice from '../views/EditDevice.vue'
 import Notifications from '../views/Notifications.vue'
 import NotificationDetail from '../views/NotificationDetail.vue'
 import SensorData from '../views/SensorData.vue'
+import Thresholds from '../views/Thresholds.vue'
+import AddThreshold from '../views/AddThreshold.vue'
+import ThresholdDetail from '../views/ThresholdDetail.vue'
+import EditThreshold from '../views/EditThreshold.vue'
+
 
 const routes = [
   {
@@ -72,6 +77,26 @@ const routes = [
     path: '/sensors',
     name: 'SensorData',
     component: SensorData
+  },
+  {
+    path: '/thresholds',
+    name: 'Thresholds',
+    component: Thresholds
+  },
+  {
+    path: '/thresholds/add',
+    name: 'AddThreshold',
+    component: AddThreshold
+  },
+  {
+    path: '/thresholds/:deviceId',
+    name: 'ThresholdDetail',
+    component:ThresholdDetail
+  },
+  {
+    path: '/thresholds/:deviceId/edit',
+    name: 'EditThreshold',
+    component: EditThreshold
   }
 ]
 const router = createRouter({
