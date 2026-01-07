@@ -30,10 +30,16 @@ class ThresholdController {
     }
 
     @GetMapping
-    List<ThresholdRepresentation> getThresholdsByUserId(@RequestParam UUID userId) {
-        return thresholdService.getThresholdsByUserId(userId).stream()
-                .map(ThresholdRepresentation::fromDomain)
-                .toList();
+    List<ThresholdRepresentation> getThresholds(@RequestParam(required = false) UUID userId) {
+        if (userId != null) {
+            return thresholdService.getThresholdsByUserId(userId).stream()
+                    .map(ThresholdRepresentation::fromDomain)
+                    .toList();
+        } else {
+            return thresholdService.getAllThresholds().stream()
+                    .map(ThresholdRepresentation::fromDomain)
+                    .toList();
+        }
     }
 
     @GetMapping("/device/{deviceId}")

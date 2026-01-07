@@ -21,6 +21,13 @@ public class ThresholdService {
     }
 
     @Transactional(readOnly = true)
+    public List<Threshold> getAllThresholds() {
+        return repository.findAll().stream()
+                .map(ThresholdEntity::toDomain)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
     public List<Threshold> getThresholdsByUserId(UUID userId) {
         return repository.findByUserId(userId).stream()
                 .map(ThresholdEntity::toDomain)
