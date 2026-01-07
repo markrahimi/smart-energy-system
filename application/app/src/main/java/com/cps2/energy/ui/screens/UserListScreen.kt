@@ -13,7 +13,7 @@ import com.cps2.energy.data.models.User
 import com.cps2.energy.viewmodels.UserListViewModel
 
 @Composable
-fun UserListScreen(onUserClick: (Long) -> Unit, viewModel: UserListViewModel = viewModel()) {
+fun UserListScreen(onUserClick: (String) -> Unit, viewModel: UserListViewModel = viewModel()) {
     val users by viewModel.users.collectAsState()
     val loading by viewModel.loading.collectAsState()
     val error by viewModel.error.collectAsState()

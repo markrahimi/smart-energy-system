@@ -11,7 +11,7 @@ import com.cps2.energy.viewmodels.EditProfileViewModel
 
 @Composable
 fun EditProfileScreen(
-        userId: Long,
+        userId: String,
         onBackClick: () -> Unit,
         viewModel: EditProfileViewModel = viewModel()
 ) {

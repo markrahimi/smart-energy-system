@@ -11,7 +11,7 @@ import com.cps2.energy.viewmodels.NotificationDetailViewModel
 
 @Composable
 fun NotificationDetailScreen(
-        notificationId: Long,
+        notificationId: String,
         onBackClick: () -> Unit,
         viewModel: NotificationDetailViewModel = viewModel()
 ) {

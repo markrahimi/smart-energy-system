@@ -23,8 +23,7 @@ class EditProfileViewModel : ViewModel() {
     private val _saveSuccess = MutableStateFlow(false)
     val saveSuccess: StateFlow<Boolean> = _saveSuccess.asStateFlow()
 
-    fun loadUser(userId: Long) {
-
+    fun loadUser(userId: String) {
         viewModelScope.launch {
             try {
                 _loading.value = true
@@ -37,8 +36,7 @@ class EditProfileViewModel : ViewModel() {
         }
     }
 
-    fun updateUser(userId: Long, fullName: String, username: String, email: String) {
-
+    fun updateUser(userId: String, fullName: String, username: String, email: String) {
         viewModelScope.launch {
             try {
                 _loading.value = true

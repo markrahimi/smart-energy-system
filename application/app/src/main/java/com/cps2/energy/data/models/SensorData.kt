@@ -4,11 +4,13 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class SensorData(
-    val id: Long,
-    val device: Device,
-    val temperature: Double?,
-    val humidity: Double?,
-    val luminosity: Double?,
-    val distance: Double?,
-    val timestamp: String
+        val id: String,
+        val deviceId: String,
+        val temperature: Double?,
+        val humidity: Double?,
+        val luminosity: Double?,
+        val powerConsumption: Double?,
+        val voltage: Double?,
+        val current: Double?,
+        val timestamp: String
 )

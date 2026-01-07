@@ -21,9 +21,9 @@ fun AppNavigation(navController: NavHostController = rememberNavController()) {
 
         composable(
                 route = "user/{userId}",
-                arguments = listOf(navArgument("userId") { type = NavType.LongType })
+                arguments = listOf(navArgument("userId") { type = NavType.StringType })
         ) { backStackEntry ->
-            val userId = backStackEntry.arguments?.getLong("userId") ?: 0L
+            val userId = backStackEntry.arguments?.getString("userId") ?: ""
             UserDetailScreen(
                     userId = userId,
                     onBackClick = { navController.popBackStack() },
@@ -36,17 +36,17 @@ fun AppNavigation(navController: NavHostController = rememberNavController()) {
 
         composable(
                 route = "edit-profile/{userId}",
-                arguments = listOf(navArgument("userId") { type = NavType.LongType })
+                arguments = listOf(navArgument("userId") { type = NavType.StringType })
         ) { backStackEntry ->
-            val userId = backStackEntry.arguments?.getLong("userId") ?: 0L
+            val userId = backStackEntry.arguments?.getString("userId") ?: ""
             EditProfileScreen(userId = userId, onBackClick = { navController.popBackStack() })
         }
 
         composable(
                 route = "notification/{notificationId}",
-                arguments = listOf(navArgument("notificationId") { type = NavType.LongType })
+                arguments = listOf(navArgument("notificationId") { type = NavType.StringType })
         ) { backStackEntry ->
-            val notificationId = backStackEntry.arguments?.getLong("notificationId") ?: 0L
+            val notificationId = backStackEntry.arguments?.getString("notificationId") ?: ""
             NotificationDetailScreen(
                     notificationId = notificationId,
                     onBackClick = { navController.popBackStack() }

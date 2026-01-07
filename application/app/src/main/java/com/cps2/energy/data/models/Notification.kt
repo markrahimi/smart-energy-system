@@ -4,11 +4,13 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class Notification(
-    val id: Long,
-    val title: String,
-    val message: String,
-    val type: String,
-    val priority: String,
-    val isRead: Boolean,
-    val createdAt: String?
+        val id: String,
+        val userId: String,
+        val title: String,
+        val message: String,
+        val type: String,
+        val priority: String,
+        val isRead: Boolean,
+        val thresholdId: String?,
+        val createdAt: String?
 )

@@ -19,14 +19,14 @@ class NotificationDetailViewModel : ViewModel() {
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error.asStateFlow()
 
-    fun loadNotification(notificationId: Long) {
+    fun loadNotification(notificationId: String) {
         viewModelScope.launch {
             try {
                 _loading.value = true
                 _notification.value = RetrofitClient.apiService.getNotificationById(notificationId)
                 _loading.value = false
             } catch (e: Exception) {
-                _error.value = "failed load notification:${e.localizedMessage ?: e.message}"
+                _error.value = "Failed to load notification: ${e.localizedMessage ?: e.message}"
                 _loading.value = false
             }
         }

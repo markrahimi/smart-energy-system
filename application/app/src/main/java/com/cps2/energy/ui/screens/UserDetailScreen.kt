@@ -13,13 +13,14 @@ import com.cps2.energy.viewmodels.UserDetailViewModel
 
 @Composable
 fun UserDetailScreen(
-        userId: Long,
+        userId: String,
         onBackClick: () -> Unit,
-        onNotificationClick: (Long) -> Unit,
-        onEditProfileClick: (Long) -> Unit,
+        onNotificationClick: (String) -> Unit,
+        onEditProfileClick: (String) -> Unit,
         viewModel: UserDetailViewModel = viewModel()
 ) {
     val user by viewModel.user.collectAsState()
+    val devices by viewModel.devices.collectAsState()
     val sensorDataMap by viewModel.sensorDataMap.collectAsState()
     val loading by viewModel.loading.collectAsState()
     val error by viewModel.error.collectAsState()
@@ -61,7 +62,7 @@ fun UserDetailScreen(
                     item {
                         Card(modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)) {
                             Column(modifier = Modifier.padding(16.dp)) {
-                                DetailRow("ID", user!!.id.toString())
+                                DetailRow("ID", user!!.id)
                                 DetailRow("Full Name", user!!.fullName)
                                 DetailRow("Username", user!!.username)
                                 DetailRow("Email", user!!.email)
@@ -79,13 +80,13 @@ fun UserDetailScreen(
 
                     item {
                         Text(
-                                text = "Devices (${user!!.devices?.size ?: 0})",
+                                text = "Devices (${devices.size})",
                                 style = MaterialTheme.typography.titleLarge,
                                 modifier = Modifier.padding(vertical = 8.dp)
                         )
                     }
 
-                    if (user!!.devices.isNullOrEmpty()) {
+                    if (devices.isEmpty()) {
                         item {
                             Text(
                                     text = "No devices found",
@@ -95,7 +96,7 @@ fun UserDetailScreen(
                             )
                         }
                     } else {
-                        items(user!!.devices!!) { device ->
+                        items(devices) { device ->
                             Card(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
                                 Column(modifier = Modifier.padding(12.dp)) {
                                     Text(
@@ -110,121 +111,61 @@ fun UserDetailScreen(
                                             text = "Status: ${device.status}",
                                             style = MaterialTheme.typography.bodySmall
                                     )
-                                }
-                            }
-                        }
-                    }
+                                    Text(
+                                            text = "Location: ${device.location ?: "N/A"}",
+                                            style = MaterialTheme.typography.bodySmall
+                                    )
 
-                    item {
-                        Text(
-                                text = "Notifications (${user!!.notifications?.size ?: 0})",
-                                style = MaterialTheme.typography.titleLarge,
-                                modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
-                        )
-                    }
-
-                    if (user!!.notifications.isNullOrEmpty()) {
-                        item {
-                            Text(
-                                    text = "No notifications found",
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    modifier = Modifier.padding(8.dp)
-                            )
-                        }
-                    } else {
-                        items(user!!.notifications!!) { notification ->
-                            Card(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
-                                Column(modifier = Modifier.padding(12.dp)) {
-                                    Text(
-                                            text = notification.title,
-                                            style = MaterialTheme.typography.titleMedium
-                                    )
-                                    Spacer(modifier = Modifier.height(4.dp))
-                                    Text(
-                                            text = "Type: ${notification.type}",
-                                            style = MaterialTheme.typography.bodySmall
-                                    )
-                                    Text(
-                                            text = "Priority: ${notification.priority}",
-                                            style = MaterialTheme.typography.bodySmall
-                                    )
-                                    Text(
-                                            text =
-                                                    "Status: ${if (notification.isRead) "Read" else "Unread"}",
-                                            style = MaterialTheme.typography.bodySmall
-                                    )
-                                    notification.createdAt?.let {
+                                    // Show sensor data if available
+                                    sensorDataMap[device.id]?.let { sensorData ->
+                                        Divider(modifier = Modifier.padding(vertical = 8.dp))
                                         Text(
-                                                text = "Created: $it",
+                                                text = "Latest Sensor Data:",
+                                                style = MaterialTheme.typography.bodySmall,
+                                                color = MaterialTheme.colorScheme.primary
+                                        )
+                                        sensorData.temperature?.let {
+                                            Text(
+                                                    text = "Temperature: $it°C",
+                                                    style = MaterialTheme.typography.bodySmall
+                                            )
+                                        }
+                                        sensorData.humidity?.let {
+                                            Text(
+                                                    text = "Humidity: $it%",
+                                                    style = MaterialTheme.typography.bodySmall
+                                            )
+                                        }
+                                        sensorData.luminosity?.let {
+                                            Text(
+                                                    text = "Luminosity: $it lux",
+                                                    style = MaterialTheme.typography.bodySmall
+                                            )
+                                        }
+                                        sensorData.powerConsumption?.let {
+                                            Text(
+                                                    text = "Power: $it W",
+                                                    style = MaterialTheme.typography.bodySmall
+                                            )
+                                        }
+                                        sensorData.voltage?.let {
+                                            Text(
+                                                    text = "Voltage: $it V",
+                                                    style = MaterialTheme.typography.bodySmall
+                                            )
+                                        }
+                                        sensorData.current?.let {
+                                            Text(
+                                                    text = "Current: $it A",
+                                                    style = MaterialTheme.typography.bodySmall
+                                            )
+                                        }
+                                        Text(
+                                                text = "Updated: ${sensorData.timestamp}",
                                                 style = MaterialTheme.typography.bodySmall,
                                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                                         )
                                     }
-                                    Spacer(modifier = Modifier.height(8.dp))
-                                    Button(
-                                            onClick = { onNotificationClick(notification.id) },
-                                            modifier = Modifier.fillMaxWidth()
-                                    ) { Text("View Details") }
-                                }
-                            }
-                        }
-                    }
-
-                    item {
-                        Text(
-                                text = "Sensor Data (${sensorDataMap.size} devices)",
-                                style = MaterialTheme.typography.titleLarge,
-                                modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
-                        )
-                    }
-
-                    if (sensorDataMap.isEmpty()) {
-                        item {
-                            Text(
-                                    text = "No sensor data found",
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    modifier = Modifier.padding(8.dp)
-                            )
-                        }
-                    } else {
-                        items(sensorDataMap.toList()) { (deviceId, sensorData) ->
-                            Card(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
-                                Column(modifier = Modifier.padding(12.dp)) {
-                                    Text(
-                                            text = "Device: ${sensorData.device.name}",
-                                            style = MaterialTheme.typography.titleMedium
-                                    )
-                                    sensorData.temperature?.let {
-                                        Text(
-                                                text = "Temperature: $it°C",
-                                                style = MaterialTheme.typography.bodySmall
-                                        )
-                                    }
-                                    sensorData.humidity?.let {
-                                        Text(
-                                                text = "Humidity: $it%",
-                                                style = MaterialTheme.typography.bodySmall
-                                        )
-                                    }
-                                    sensorData.luminosity?.let {
-                                        Text(
-                                                text = "Luminosity: $it lux",
-                                                style = MaterialTheme.typography.bodySmall
-                                        )
-                                    }
-                                    sensorData.distance?.let {
-                                        Text(
-                                                text = "Distance: $it cm",
-                                                style = MaterialTheme.typography.bodySmall
-                                        )
-                                    }
-                                    Text(
-                                            text = "Timestamp: ${sensorData.timestamp}",
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
                                 }
                             }
                         }
