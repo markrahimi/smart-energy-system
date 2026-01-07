@@ -1,4 +1,5 @@
 INSERT INTO users (id, username, email, full_name, password, role, created_at) VALUES ('550e8400-e29b-41d4-a716-446655440001', 'mahdiyeh', 'mahdieh.anjomshoae76@gmail.com', 'Mahdiyeh ANJOMSHOAE', 'pass123', 'ADMIN', CURRENT_TIMESTAMP);
+INSERT INTO users (id, username, email, full_name, password, role, created_at) VALUES ('550e8400-e29b-41d4-a716-446655440002', 'mohammadali', 'imarkrahimi@gmail.com', 'Mohammadali RAHIMI', 'pass123', 'USER', CURRENT_TIMESTAMP);
 
 INSERT INTO devices (id, name, type, location, status, active, user_id, created_at) VALUES ('650e8400-e29b-41d4-a716-446655440001', 'ESP32-Device-001', 'IOT_SENSOR', 'Living Room', 'ACTIVE', true, '550e8400-e29b-41d4-a716-446655440001', CURRENT_TIMESTAMP);
 
