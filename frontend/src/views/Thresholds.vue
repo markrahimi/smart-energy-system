@@ -19,7 +19,6 @@
         <thead>
           <tr>
             <th>Device ID</th>
-            <th>User ID</th>
             <th>Temperature (C)</th>
             <th>Humidity (%)</th>
             <th>Power (W)</th>
@@ -30,7 +29,6 @@
         <tbody>
           <tr v-for="threshold in thresholds" :key="threshold.id">
             <td>{{ threshold.deviceId }}</td>
-            <td>{{ threshold.userId }}</td>
             <td>{{ formatRange(threshold.minTemperature, threshold.maxTemperature) }}</td>
             <td>{{ formatRange(threshold.minHumidity, threshold.maxHumidity) }}</td>
             <td>{{ formatRange(threshold.minPower, threshold.maxPower) }}</td>
