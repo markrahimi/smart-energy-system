@@ -141,6 +141,40 @@ smart-energy-system/
 
 ---
 
+## Deployment
+
+### Backend Deployment on Render.com
+
+For production deployment and easier demonstration, we deployed the backend on **Render.com** - a cloud platform that provides free hosting for our Spring Boot application.
+
+**Why Render?**
+
+- Free tier with sufficient resources for demonstration
+- Automatic deployment from GitHub
+- Docker support for consistent environments
+- No credit card required for basic usage
+- Built-in HTTPS and custom domains
+
+**Deployment Configuration:**
+
+The backend is containerized using Docker to ensure consistency between development and production environments. The deployment configuration is managed through:
+
+- **Dockerfile** (`backend/Dockerfile`):
+  - Multi-stage build to optimize image size
+  - Uses Gradle 8.14 with JDK 21 for building
+  - Final image uses Eclipse Temurin JRE Alpine (lightweight)
+  - Application runs on port 8080
+
+**Deployment Process:**
+
+1. Push code to GitHub repository
+2. Render automatically detects changes
+3. Builds Docker image using the Dockerfile
+4. Deploys the container to Render's infrastructure
+5. Backend becomes accessible via provided URL (e.g., `https://smart-energy-backend.onrender.com`)
+
+---
+
 ## Start
 
 Each component has its own detailed documentation with setup instructions:
