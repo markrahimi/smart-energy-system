@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: smart-energy-backend
-    runtime: docker
-    dockerfilePath: backend/Dockerfile
-    dockerContext: backend
-    plan: free

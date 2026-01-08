@@ -3,7 +3,7 @@ WIFI_SSID = "Mahdiyeh"
 WIFI_PASSWORD = "yhbb06481"
 
 # backend api
-API_URL = "http://192.168.1.100:8080/api"
+API_URL = "https://smart-energy-system.onrender.com/api"
 DEVICE_ID = "650e8400-e29b-41d4-a716-446655440001"  # ESP32-Device-001 from database
 
 # sensor pins
