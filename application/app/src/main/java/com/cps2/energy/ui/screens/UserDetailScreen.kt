@@ -17,6 +17,7 @@ fun UserDetailScreen(
         onBackClick: () -> Unit,
         onNotificationClick: (String) -> Unit,
         onEditProfileClick: (String) -> Unit,
+        onViewNotificationsClick: (String) -> Unit,
         viewModel: UserDetailViewModel = viewModel()
 ) {
     val user by viewModel.user.collectAsState()
@@ -72,10 +73,20 @@ fun UserDetailScreen(
                     }
 
                     item {
-                        Button(
-                                onClick = { onEditProfileClick(userId) },
-                                modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
-                        ) { Text("Edit Profile") }
+                        Row(
+                                modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Button(
+                                    onClick = { onEditProfileClick(userId) },
+                                    modifier = Modifier.weight(1f)
+                            ) { Text("Edit Profile") }
+
+                            Button(
+                                    onClick = { onViewNotificationsClick(userId) },
+                                    modifier = Modifier.weight(1f)
+                            ) { Text("Notifications") }
+                        }
                     }
 
                     item {
