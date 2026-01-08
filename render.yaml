@@ -1,10 +1,7 @@
 services:
   - type: web
     name: smart-energy-backend
-    env: docker
-    dockerfilePath: ./backend/Dockerfile
-    dockerContext: ./backend
+    runtime: docker
+    dockerfilePath: backend/Dockerfile
+    dockerContext: backend
     plan: free
-    envVars:
-      - key: SERVER_PORT
-        value: 8080
