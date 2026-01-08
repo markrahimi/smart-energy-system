@@ -1,6 +1,7 @@
 # Smart Energy Saving System
 
 **Programmer:**
+
 Mahdiyeh ANJOMSHOAE
 &
 Mohammadali RAHIMI
@@ -9,6 +10,10 @@ Mohammadali RAHIMI
 Smart Energy Saving System – S1 M1 CPS2
 
 ---
+
+## Project Overview
+
+This project is a complete IoT-based smart energy monitoring system. The system collects energy consumption and environmental data from ESP32 devices, processes it through a Spring Boot backend, and presents it to users via web and mobile applications. Users can monitor their energy usage in real-time, view analytics, and receive energy-saving recommendations.
 
 ## 1. Below are some of the conversations we had at the beginning of the project, but after that we will write you detailed details of the project.
 
@@ -58,66 +63,89 @@ Database Data:
 - Notification history.
 - Real-time consumption values.
 
+## System
+
+The system consists of four main parts:
+
+### 1. Embedded Device (ESP32)
+
+ESP32 microcontroller with sensors that collect environmental and energy data, then send it to the backend server.
+
+**Technologies:** ESP32, MicroPython, DHT22, TEMT6000, Potentiometer, SD Card
+
+[Full Embedded Documentation](embedded/README.md)
+
+### Backend
+
+Central REST API server that receives data from devices, stores it in database, and serves it to frontend and mobile applications.
+
+**Technologies:** Java 21, Spring Boot 4.0.1, Gradle 8.14, H2 Database, Spring Data JPA
+
+[Full Backend Documentation](backend/README.md)
+
+### Frontend
+
+Dashboard for monitoring and analyzing energy consumption with charts, reports, and energy-saving suggestions.
+
+**Technologies:** VueJS
+
+[Full Frontend Documentation](frontend/README.md)
+
+### 4. Mobile Application
+
+Mobile app for remote monitoring and receiving energy-saving notifications.
+
+**Technologies:** Kotlin
+
+[Full Mobile Documentation](application/README.md)
+
 ---
 
-## 2.Detail of our Project:
+## Data Loop
 
-## Embedded Part:
+The system follows this data:
 
-We will use:
+1. **ESP32 Device** → Collects sensor data (temperature, humidity, light, power consumption)
+2. **ESP32 Device** → Sends data via wifi http POST to Backend
+3. **Backend Server** → Receives data and stores it in H2 Database
+4. **Backend Server** → Provides API endpoints for data access
+5. **Web Frontend** → Connects to Backend REST API to fetch and display data
+6. **Mobile App** → Connects to Backend REST API to fetch and display data
 
-- Board: ESP32
-- MicroPython
-- Potentiometer
-- DHT22
-- temt6000
-- bluefuit sense
+![Data Flow Diagram](docs/images/dataflow.png)
 
-## Backend Part:
+All components communicate through the central backend server. The backend manages the database, handles authentication, and serves data to both web and mobile clients. The ESP32 devices operate independently and send data directly to the backend without requiring the frontend or mobile apps to be running.
 
-We want the backend to be able to cover all our REST APIs in full JSON. To complete this section, as the professor explained and we learned in class, we will use Keycloak for Authentication.
-And our control and central core will be the backend of the application.
+---
 
-We have fully agreed to develop the application in VSCode, if you need it, you can use the gradlew tools to build and run the backend.
+## Database Structure
 
-Our backend is the first part we will implement, although we will seek help from Notion to complete and control the software engineering.
+while working on this project, we felt that understand the database structure would help grasp the overall system architecture better. The diagram below shows how different entities relate to each other and what data flows through the system
 
-We will use:
+![Database Diagram](docs/images/database.png)
 
-- Java 21
-- Spring Boot 4.0.1
-- Gradle 8.14
-- H2 Database
-- Eclipse Mosquitto
-  -Spring Data JPA - Database Access (ORM)
+---
 
-## Frontend Part:
-
-We will use:
-
-- VueJS
-
-## Application Part:
-
-We will use:
-
-- Kotlin
-
-## 3. Project Folder Structure:
+## Project Structure
 
 ```
 smart-energy-system/
-├── backend                     # Spring Boot 4.0.1 + Java 21
-├── frontend                    # VueJS
-├── application                 # Kotlin
-├── embedded                    # ESP32
-├── docs                        # All documents
+├── backend/                    # Spring Boot
+├── frontend/                   # VueJS
+├── application/                # Kotlin
+├── embedded/                   # ESP32 + MicroPython
+├── docs/                       # Documentation and images
+│   └── images/                 # System diagrams and photos
+└── README.md                   # This file
 ```
 
-## 4.Data Loop
+---
 
-This section will be added soon.
+## Start
 
-#5.Data Loop
+Each component has its own detailed documentation with setup instructions:
 
-This section will be added soon.
+- **Embedded:** See [embedded/README.md](embedded/README.md)
+- **Backend:** See [backend/README.md](backend/README.md)
+- **Frontend:** See [frontend/README.md](frontend/README.md)
+- **Mobile:** See [application/README.md](application/README.md)
