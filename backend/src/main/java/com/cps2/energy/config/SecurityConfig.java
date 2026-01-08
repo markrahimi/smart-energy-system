@@ -21,24 +21,17 @@ class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorize -> authorize
-                    // .requestMatchers("/h2-console/**").permitAll()
-                    // .requestMatchers("/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                    // .requestMatchers("/api/users/*/notifications/*/read").hasRole("USER")
-                    // .requestMatchers("/api/devices/*/deactivate").hasRole("ADMIN")
-                    // .requestMatchers("/api/**")
                         .anyRequest().permitAll()
                 )
-                    // .oauth2ResourceServer(oauth2 -> oauth2
-                    //     .jwt(jwt -> {})
-                    // )
-                            .csrf(AbstractHttpConfigurer::disable);
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> {}))
+                .csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+        config.setAllowedOriginPatterns(Arrays.asList("*"));  // Allow all
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         config.setAllowedHeaders(Arrays.asList("*"));
         config.setAllowCredentials(true);
