@@ -171,7 +171,7 @@ The backend is containerized using Docker to ensure consistency between developm
 2. Render automatically detects changes
 3. Builds Docker image using the Dockerfile
 4. Deploys the container to Render's infrastructure
-5. Backend becomes accessible via provided URL (e.g., `https://smart-energy-backend.onrender.com`)
+5. Backend becomes accessible via provided URL (`https://smart-energy-system.onrender.com/swagger-ui.html`)
 
 ---
 
